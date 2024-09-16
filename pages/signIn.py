@@ -5,8 +5,8 @@ from internal.lib.style.style import *
 
 class SignInPage:
 
-    email_input = ft.Container(
-        content=ft.TextField(label='Input Email',
+    username = ft.Container(
+        content=ft.TextField(label='Input your username',
                              bgcolor=secondaryBgColor,
                              border=ft.InputBorder.NONE,
                              filled=True,
@@ -14,15 +14,16 @@ class SignInPage:
         border_radius=15
     )
 
-    password_input = ft.Container(
-        content=ft.TextField(label='Input password',
-                             password=True, can_reveal_password=True,
-                             bgcolor=secondaryBgColor,
-                             border=ft.InputBorder.NONE,
-                             filled=True,
-                             color=secondaryFontColor),
-        border_radius=15
-    )
+    #TODO: add password input
+    # password_input = ft.Container(
+    #     content=ft.TextField(label='Input password',
+    #                          password=True, can_reveal_password=True,
+    #                          bgcolor=secondaryBgColor,
+    #                          border=ft.InputBorder.NONE,
+    #                          filled=True,
+    #                          color=secondaryFontColor),
+    #     border_radius=15
+    # )
 
     def view(self, page: ft.Page, params: Params, basket: Basket):
         page.title = 'Sign In page'
@@ -51,8 +52,9 @@ class SignInPage:
                                                 weight=ft.FontWeight.NORMAL,
                                                 font_family="Special Elite",
                                             ),
-                                    self.email_input,
-                                    self.password_input,
+                                    self.username,
+                                    #TODO: add password input
+                                    #self.password_input,
                                     ft.Container(
                                         ft.Text('Sign In', color=defaultBgColor),
                                         alignment=ft.alignment.center,

@@ -4,7 +4,7 @@ from internal.logger.logretty.loggerpretty import setup_logger
 from router import Router
 
 currentEnv = "local"
-
+HOST = "http://localhost:8080"
 
 def main(page: ft.Page):
     # TODO: add logger

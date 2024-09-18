@@ -3,7 +3,6 @@ import requests
 from flet_route import Params, Basket
 from internal.lib.style.style import *
 
-
 class SignUpPage:
 
     def __init__(self, log):

@@ -50,7 +50,7 @@ class SignInUI:
                     expand=True,
                     controls=[
                         self.create_left_panel(page),
-                        self.create_right_panel()
+                        SignInUI.create_right_panel()
                     ]
                 )
             ],
@@ -80,7 +80,8 @@ class SignInUI:
             )
         )
 
-    def create_right_panel(self) -> ft.Container:
+    @staticmethod
+    def create_right_panel() -> ft.Container:
         return ft.Container(
             expand=3,
             image_src="https://avatars.mds.yandex.net/i?id=9e57baa961c6dfd8be9d0a1eb0cddc5f_l-5221319-images-thumbs&n=13",

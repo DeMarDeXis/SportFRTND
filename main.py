@@ -13,4 +13,4 @@ def main(page: ft.Page):
     Router(page, logg)
 
 if __name__ == '__main__':
-    ft.app(target=main, assets_dir="assets")
+    ft.app(target=main, assets_dir="assets"  )

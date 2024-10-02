@@ -72,7 +72,8 @@ class SignInUI:
                     self.sign_in_button,
                     ft.Container(
                         ft.Text('Sign Up', color=defaultFontColor),
-                        on_click=lambda _: page.go('/signup'),
+                        # on_click=lambda _: page.go('/signup'),
+                        on_click=lambda _: page.go('/intro'),
                         alignment=ft.alignment.center,
                         height=40
                     ),

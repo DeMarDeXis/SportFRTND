@@ -10,37 +10,37 @@ class SuccessPageUI:
         self.welcome_text = ft.Text("Welcome to the club, buddy",
             size=30,
             weight=ft.FontWeight.BOLD,
-            expand=3,
+            # expand=3,
             color=defaultFontColor,
             font_family="Special Elite",
-            )
-        # ft.Container(
-        #     expand=2,
-        #     alignment=ft.alignment.center,
-        #     content=
-        # )
+            text_align=ft.TextAlign.CENTER,
+        )
 
         self.back_button = ft.Container(
             ft.Icon(name=ft.icons.ARROW_BACK_IOS_NEW, color=defaultBgColor),
             alignment=ft.alignment.center,
             height=40,
-            # width=40,
+            width=40,
             bgcolor=hoverBgColor,
-            on_click=back_button  # lambda e: page.go('/'),
+            on_click=back_button,  # lambda e: page.go('/'),
+            margin = ft.margin.only(top=20),
         )
 
-    def create_view(self,page: ft.Page) -> ft.View:
+    def create_view(self, page: ft.Page) -> ft.View:
         return ft.View(
             "/success",
             controls=[
-                ft.Column(
+                ft.Container(
+                    content=ft.Column(
+                        alignment=ft.MainAxisAlignment.CENTER,
+                        horizontal_alignment=ft.CrossAxisAlignment.CENTER,
+                        controls=[
+                            self.welcome_text,
+                            self.back_button
+                        ],
+                    ),
                     expand=True,
-                    alignment=ft.MainAxisAlignment.CENTER,
-                    horizontal_alignment=ft.CrossAxisAlignment.CENTER,
-                    controls=[
-                        self.welcome_text,
-                        self.back_button
-                    ],
+                    alignment=ft.alignment.center
                 ),
             ],
             bgcolor=defaultBgColor,

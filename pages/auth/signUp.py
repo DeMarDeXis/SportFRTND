@@ -148,7 +148,7 @@ class SignUpPage:
 
     def back_button(self, e):
         self.log.info("Back button clicked")
-        self.page.go('/success')
+        self.page.go('/')
 
     def send_data_to_server(self, _):
         #TODO: add password to data

@@ -74,6 +74,7 @@ class SignInUI:
                         ft.Text('Sign Up', color=defaultFontColor),
                         # on_click=lambda _: page.go('/signup'),
                         on_click=lambda _: page.go('/intro'),
+                        # on_click=lambda _: page.go('/welcome'),
                         alignment=ft.alignment.center,
                         height=40
                     ),

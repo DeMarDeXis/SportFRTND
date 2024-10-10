@@ -4,6 +4,14 @@ from flet_route import Params, Basket
 from internal.lib.style.style import *
 from typing import Callable, Optional
 
+root_path = "C:/Users/User/Documents/GitHub/TrainerForDiplom/ClientDiplom"
+img_1 = root_path + "/assets/videos/tampa-bay.mp4"
+img_2 = root_path + "/assets/videos/san-jose.mp4"
+img_3 = root_path + "/assets/videos/utah.mp4"
+img_4 = root_path + "/assets/videos/vancouver.mp4"
+img_5 = root_path + "/assets/videos/mlb.mp4"
+img_6 = root_path + "/assets/videos/nfl.mp4"
+
 class IntroVideoUI:
     def __init__(self, handle_volume_change: Callable, handle_playback_rate_change: Callable,
                  handle_pause: Callable, handle_play_or_pause: Callable,
@@ -12,30 +20,35 @@ class IntroVideoUI:
                  handle_add_media: Callable, handle_remove_media: Callable, handle_jump: Callable):
         self.sample_media = [
             ft.VideoMedia(
-                # "https://user-images.githubusercontent.com/28951144/229373720-14d69157-1a56-4a78-a2f4-d7a134d7c3e9.mp4"
-                "C:/Users/User/Documents/GitHub/TrainerForDiplom/ClientDiplom/assets/images/san-jose.mp4"
+                img_1
             ),
             ft.VideoMedia(
-                # "https://user-images.githubusercontent.com/28951144/229373718-86ce5e1d-d195-45d5-baa6-ef94041d0b90.mp4"
-                "C:/Users/User/Documents/GitHub/TrainerForDiplom/ClientDiplom/assets/images/tampa-bay.mp4"
+                img_2
             ),
-            # ft.VideoMedia(
-            #     "https://user-images.githubusercontent.com/28951144/229373716-76da0a4e-225a-44e4-9ee7-3e9006dbc3e3.mp4"
-            # ),
-            # ft.VideoMedia(
-            #     "https://user-images.githubusercontent.com/28951144/229373695-22f88f13-d18f-4288-9bf1-c3e078d83722.mp4"
-            # ),
             ft.VideoMedia(
-                "C:/Users/User/Documents/GitHub/TrainerForDiplom/ClientDiplom/assets/images/utah.mp4",
-                extras={
-                    "artist": "Thousand Foot Krutch",
-                    "album": "The End Is Where We Begin",
-                },
-                http_headers={
-                    "Foo": "Bar",
-                    "Accept": "*/*",
-                },
+                img_3
             ),
+            ft.VideoMedia(
+                img_4
+            ),
+            ft.VideoMedia(
+                img_5
+            ),
+            ft.VideoMedia(
+                img_6
+            ),
+
+            # ft.VideoMedia(
+            #     "C:/Users/User/Documents/GitHub/TrainerForDiplom/ClientDiplom/assets/images/utah.mp4",
+            #     extras={
+            #         "artist": "Thousand Foot Krutch",
+            #         "album": "The End Is Where We Begin",
+            #     },
+            #     http_headers={
+            #         "Foo": "Bar",
+            #         "Accept": "*/*",
+            #     },
+            # ),
         ]
 
         self.video = ft.Video(

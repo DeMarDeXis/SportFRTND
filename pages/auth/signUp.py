@@ -6,7 +6,7 @@ from typing import Callable, Optional
 
 class SignUpUi:
 
-    def __init__(self, on_name_change: Callable, on_username_change: Callable, on_sign_up: Callable, back_button: Callable):
+    def __init__(self, on_name_change: Callable, on_username_change: Callable,on_password_change: Callable, on_sign_up: Callable, back_button: Callable):
         self.welcome_text = ft.Text(
                                     "Bienvenido",
                                     color=defaultFontColor,
@@ -45,7 +45,9 @@ class SignUpUi:
                                  bgcolor=secondaryBgColor,
                                  border=ft.InputBorder.NONE,
                                  filled=True,
-                                 color=secondaryFontColor),
+                                 color=secondaryFontColor,
+                                 on_change=on_password_change,
+                                 ),
             border_radius=15
         )
 
@@ -121,7 +123,7 @@ class SignUpPage:
         self.nameJSON = ""
         self.usernameJSON = ""
         self.passwordJSON = ""
-        self.ui = SignUpUi(self.on_name_change, self.on_username_change, self.send_data_to_server, self.back_button)
+        self.ui = SignUpUi(self.on_name_change, self.on_username_change, self.on_password_change, self.send_data_to_server, self.back_button)
         self.snack_bar = SignUpPage.create_snack_bar()
         # self.note_success = SignUpNotification("Success", "🔥")
 
@@ -146,14 +148,18 @@ class SignUpPage:
     def on_name_change(self, e):
         self.nameJSON = e.control.value
 
+    def on_password_change(self, e):
+        self.passwordJSON = e.control.value
+
     def back_button(self, e):
         self.log.info("Back button clicked")
         self.page.go('/')
 
     def send_data_to_server(self, _):
         #TODO: add password to data
-        data = {"name": self.nameJSON, "username": self.usernameJSON,
-                # "password": self.passwordJSON
+        data = {"name": self.nameJSON,
+                "username": self.usernameJSON,
+                "password": self.passwordJSON
                 }
         self.log.info(f"Sending data to server: {data}")
 

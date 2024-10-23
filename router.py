@@ -1,6 +1,7 @@
 import flet as ft
 from click import clear
 from flet_route import Routing, path
+from flet_route import Params, Basket
 from pages.auth.signIn import SignInPage
 from pages.auth.signUp import SignUpPage
 from pages.auth.success_page import SuccessPage
@@ -11,11 +12,12 @@ class Router:
     def __init__(self, page: ft.Page, log):
         self.page = page
         self.log = log
-        self.signInPage = SignInPage(log)
+        self.basket = Basket()
+        self.signInPage = SignInPage(log, self.basket)
         self.signUpPage = SignUpPage(log)
         self.success = SuccessPage(log)
         self.intro = IntroVideoPage(log)
-        self.welcome = WelcomePage(log)
+        self.welcome = WelcomePage(log, self.basket)
         self.app_routes = [
             path(url='/', clear=True, view=self.signInPage.view),
             path(url='/signup', clear=False, view=self.signUpPage.view),

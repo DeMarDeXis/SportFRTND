@@ -3,11 +3,15 @@ import requests
 from flet_route import Params, Basket
 from typing import Callable, Optional
 from internal.lib.style.style import *
+from config import HOST
 
-API_URL = "http://localhost:8080/auth/sign-in"
+API_URL = HOST + "/auth/sign-in"
+image_sign_in = "https://i.pinimg.com/originals/19/a7/09/19a70927aff373b1097a611a2f5bf28e.jpg"
+# image_sign_in = "https://sun9-52.userapi.com/impf/c638825/v638825500/5cfa9/NEKNKs0V3ro.jpg?size=1280x966&quality=96&sign=a2f2f70ef5c950ee757faae5b7904fa4&c_uniq_tag=SdiA6flKyqfG7i5oqsatO8iz-iPrg_OIepUzMSjy7nY&type=album"
 
 class SignInUI:
-    def __init__(self, on_username_change: Callable, on_password_change: Callable, on_sign_in: Callable):
+    def __init__(self, on_username_change: Callable, on_password_change: Callable,
+                 on_sign_in: Callable, on_sign_up: Callable, close_app: Callable):
         self.username = ft.Container(
             content=ft.TextField(
                 label='Input your username',
@@ -42,6 +46,26 @@ class SignInUI:
             on_click=on_sign_in
         )
 
+        self.sign_up_button = ft.Container(
+            ft.Text('Sign Up', color=defaultFontColor),
+            alignment=ft.alignment.center,
+            height=40,
+            on_click=on_sign_up,
+            # on_click=lambda _: page.go('/welcome')
+        )
+
+        self.exit_button = ft.IconButton(
+            icon=ft.icons.EXIT_TO_APP,
+            # icon_color=defaultFontColor,
+            # icon_color="RED",
+            icon_size=30,
+            on_click=close_app,
+            style=ft.ButtonStyle(
+                bgcolor=secondaryBgColor,
+                color="RED",
+            )
+        )
+
     def create_view(self, page: ft.Page) -> ft.View:
         return ft.View(
             "/",
@@ -70,14 +94,8 @@ class SignInUI:
                     self.username,
                     self.password_input,
                     self.sign_in_button,
-                    ft.Container(
-                        ft.Text('Sign Up', color=defaultFontColor),
-                        # on_click=lambda _: page.go('/signup'),
-                        on_click=lambda _: page.go('/intro'),
-                        # on_click=lambda _: page.go('/welcome'),
-                        alignment=ft.alignment.center,
-                        height=40
-                    ),
+                    self.sign_up_button,
+                    self.exit_button
                 ]
             )
         )
@@ -86,25 +104,27 @@ class SignInUI:
     def create_right_panel() -> ft.Container:
         return ft.Container(
             expand=3,
-            image_src="https://avatars.mds.yandex.net/i?id=9e57baa961c6dfd8be9d0a1eb0cddc5f_l-5221319-images-thumbs&n=13",
+            image_src=image_sign_in,
             image_fit=ft.ImageFit.COVER,
             content=ft.Column(
                 alignment=ft.MainAxisAlignment.CENTER,
                 horizontal_alignment=ft.CrossAxisAlignment.CENTER,
                 controls=[
-                    ft.Icon(name=ft.icons.LOCK_PERSON_ROUNDED, color=hoverBgColor, size=140),
-                    ft.Text('Sign In', color=hoverBgColor, size=25, weight=ft.FontWeight.BOLD)
+                    ft.Icon(name=ft.icons.SPORTS_BASEBALL_OUTLINED, color=hoverBgColor, size=140),
+                    ft.Text('SportThunder', color=hoverBgColor, size=25, weight=ft.FontWeight.BOLD)
                 ]
             )
         )
 
 class SignInPage:
-    def __init__(self, log):
+    def __init__(self, log, basket):
         self.log = log
+        self.basket = basket
         self.page: Optional[ft.Page] = None
         self.username_json = ""
         self.password_json = ""
-        self.ui = SignInUI(self.on_username_change, self.on_password_change, self.send_data_to_server)
+        self.ui = SignInUI(self.on_username_change, self.on_password_change, self.send_data_to_server,
+                           self.sign_up, self.close_app)
         self.snack_bar = self.create_snack_bar()
 
     def create_snack_bar(self) -> ft.SnackBar:
@@ -118,6 +138,13 @@ class SignInPage:
             duration=4000,
             open=False,
         )
+
+    def sign_up(self, _):
+        # self.page.go('/signup')
+        self.page.go('/welcome')
+
+    def close_app(self, _):
+        self.page.window_destroy()
 
     def on_username_change(self, e):
         self.username_json = e.control.value
@@ -145,6 +172,11 @@ class SignInPage:
         token = response_data.get('token')
         if token:
             self.log.info(f"Received token: {token}")
+            self.page.session.set("auth_token", token)
+            self.page.session.set("username", self.username_json)
+            self.log.info(f"{token} and {self.username_json} saved in basket")
+
+            self.page.go('/welcome')
         else:
             self.show_error_message("Token not received from server.")
 
@@ -170,8 +202,8 @@ class SignInPage:
         page.title = 'Sign In page'
         page.window.width = defaultWidthWindow
         page.window.height = defaultHeightWindow
-        page.window.min_width = 800
-        page.window.min_height = 400
+        page.window.min_width = 1000
+        page.window.min_height = 600
         page.fonts = {"Special Elite": "../assets/fonts/specialelite-cyrillic.ttf"}
 
         view = self.ui.create_view(page)

@@ -1,2 +1,6 @@
 .idea/*
-
+*.txt
+Taskfile.yaml
+/pages/Zdebugs_page
+debug
+__pycache__/

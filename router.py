@@ -1,14 +1,29 @@
 import flet as ft
+from click import clear
 from flet_route import Routing, path
-from pages.signIn import SignInPage
-from pages.signUp import SignUpPage
+from flet_route import Params, Basket
+from pages.auth.signIn import SignInPage
+from pages.auth.signUp import SignUpPage
+from pages.auth.success_page import SuccessPage
+from pages.intro.intro import IntroVideoPage
+from pages.welcome.welcome_page import WelcomePage
 
 class Router:
-    def __init__(self, page: ft.Page):
+    def __init__(self, page: ft.Page, log):
         self.page = page
+        self.log = log
+        self.basket = Basket()
+        self.signInPage = SignInPage(log, self.basket)
+        self.signUpPage = SignUpPage(log)
+        self.success = SuccessPage(log)
+        self.intro = IntroVideoPage(log)
+        self.welcome = WelcomePage(log, self.basket)
         self.app_routes = [
-            path(url='/', clear=True, view=SignInPage().view),
-            path(url='/signup', clear=False, view=SignUpPage().view),
+            path(url='/', clear=True, view=self.signInPage.view),
+            path(url='/signup', clear=False, view=self.signUpPage.view),
+            path(url='/success', clear=False, view=self.success.view),
+            path(url='/intro', clear=False, view=self.intro.view),
+            path(url='/welcome', clear=False, view=self.welcome.view),
         ]
 
         Routing(

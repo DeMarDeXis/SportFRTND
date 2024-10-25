@@ -1,0 +1,10 @@
+version: '3'
+
+tasks:
+  main:
+    aliases:
+      - main-cmd
+      - m
+    desc: "Run a command main"
+    cmds:
+      - python main.py

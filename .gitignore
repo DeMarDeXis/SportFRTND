@@ -1,0 +1,8 @@
+.idea/*
+assets/*
+build/*
+dist/*
+*.txt
+/pages/Zdebugs_page
+__pycache__/
+#Taskfile.yaml
